@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "expo": "~50.0.6",
+    "expo-cli": "^6.3.10",
+    "expo-dev-client": "~3.3.8",
     "expo-status-bar": "~1.11.1",
     "expo-system-ui": "^2.9.3",
     "nativewind": "^2.0.11",

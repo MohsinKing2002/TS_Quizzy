@@ -27,7 +27,7 @@ type QuestionProps = {
 export type AnswerProps = {
   question: string;
   user_answer: string;
-  correct: boolean;
+  correct?: boolean;
   correct_answer: string;
 };
 
@@ -83,7 +83,6 @@ export default function App() {
   /************************ check answer *****************************/
   const checkAnwer = (text: string) => {
     const isCorrect = Questions[number].correct_answer === text;
-    if (isCorrect) setScore((prev) => prev + 1);
     //save the attemp to userAnswers
     let ans = {
       question: Questions[number].question,
@@ -96,6 +95,17 @@ export default function App() {
 
   /************************ go to next question *****************************/
   const goToNextQuestion = () => {
+    //check if the question is unattemp
+    const isAttemped = Answers[number];
+    if (!isAttemped) {
+      let ans = {
+        question: Questions[number].question,
+        user_answer: "",
+        correct_answer: Questions[number].correct_answer,
+      };
+      setAnswers((prev) => [...prev, ans]);
+    }
+
     let next = number + 1;
     if (next == amount) {
       setStarted(false);
@@ -105,7 +115,6 @@ export default function App() {
 
   /************************ Restart / close anlytics *****************************/
   const StartAgain = () => {
-    setName("");
     setAmount(10);
     setCategory("");
     setDifficulty("");
@@ -135,9 +144,12 @@ export default function App() {
           <>
             {started ? (
               <QuestionCard
+                Total={amount}
+                difficulty={difficulty}
+                category={category}
                 number={number + 1}
-                question={Questions[number].question}
-                answers={Questions[number].answers}
+                question={Questions[number]?.question}
+                answers={Questions[number]?.answers}
                 checkAnwer={checkAnwer}
                 userAnswer={Answers ? Answers[number] : undefined}
                 nextQuestion={goToNextQuestion}

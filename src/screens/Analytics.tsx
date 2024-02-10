@@ -71,8 +71,8 @@ const Analytics = ({ name, AnwersObject, StartAgain }: Props) => {
     let cr = 0,
       incr = 0;
     AnwersObject.forEach((item, index) => {
-      if (item.correct) cr++;
-      else incr++;
+      if (item?.correct == true) cr++;
+      else if (item?.correct == false) incr++;
     });
     setTotalCorrect(cr);
     setTotalInCorrect(incr);
@@ -93,7 +93,7 @@ const Analytics = ({ name, AnwersObject, StartAgain }: Props) => {
           {name}
         </Text>
 
-        <View className="pt-3 pb-2 flex flex-row justify-between">
+        <View className="pt-3 pb-1 flex flex-row justify-between">
           <ResultBox
             colorScheme={colorScheme}
             TextTheming={TextTheming}
@@ -109,14 +109,22 @@ const Analytics = ({ name, AnwersObject, StartAgain }: Props) => {
             value={totalInCorrect}
           />
         </View>
-        <ResultBox
-          cn="w-56 mx-auto mb-2"
-          colorScheme={colorScheme}
-          TextTheming={TextTheming}
-          icon="pluscircleo"
-          title="Attemped"
-          value={AnwersObject.length}
-        />
+        <View className="pb-6 flex flex-row justify-between">
+          <ResultBox
+            colorScheme={colorScheme}
+            TextTheming={TextTheming}
+            icon="clockcircleo"
+            title="Attemped"
+            value={totalCorrect + totalInCorrect}
+          />
+          <ResultBox
+            colorScheme={colorScheme}
+            TextTheming={TextTheming}
+            icon="pluscircleo"
+            title="Total"
+            value={AnwersObject.length}
+          />
+        </View>
 
         {/************************ next question button *****************************/}
         <TouchableOpacity
@@ -129,7 +137,7 @@ const Analytics = ({ name, AnwersObject, StartAgain }: Props) => {
       </View>
       {/************************ Illustration *****************************/}
       <Image
-        className="h-60 w-60 m-auto"
+        className="h-56 w-56 m-auto"
         source={CongratsImage}
         alt="illustration"
       />

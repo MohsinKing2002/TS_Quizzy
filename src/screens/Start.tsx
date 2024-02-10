@@ -30,6 +30,7 @@ const Start = ({
   /************************ theme toggle *****************************/
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const BgTheming = colorScheme == "light" ? "bg-white" : "bg-slate-700";
+  const BgTouchable = colorScheme == "light" ? "sky-200" : "lightsky";
   const TextTheming = colorScheme == "light" ? "text-black" : "text-gray-200";
 
   const [QuestionCategory, setQuestionCategory] = useState<SelectProps[]>([
@@ -155,7 +156,7 @@ const Start = ({
                 setAmount(question.value);
               }}
               className={`py-2 px-5 ${
-                question.select ? "bg-lightsky" : "border border-gray-300"
+                question.select ? `bg-${BgTouchable}` : "border border-gray-300"
               } rounded-full`}
             >
               <Text className={`text-base ${TextTheming}`}>
@@ -180,7 +181,7 @@ const Start = ({
                 setCategory(question.value);
               }}
               className={`py-2 px-5 ${
-                question.select ? "bg-lightsky" : "border border-gray-300"
+                question.select ? `bg-${BgTouchable}` : "border border-gray-300"
               } rounded-full m-1`}
             >
               <Text className={`text-base ${TextTheming}`}>
@@ -209,7 +210,7 @@ const Start = ({
                 setDifficuly(question.title == "Default" ? "" : question.title);
               }}
               className={`py-2 px-5 ${
-                question.select ? "bg-lightsky" : "border border-gray-300"
+                question.select ? `bg-${BgTouchable}` : "border border-gray-300"
               } rounded-full m-1`}
             >
               <Text className={`text-base ${TextTheming} capitalize`}>
@@ -227,7 +228,7 @@ const Start = ({
           fetchQuestions();
         }}
         className={`mt-4 p-3 ${
-          !name ? " border border-gray-400" : "bg-lightsky"
+          !name ? " border border-gray-400" : "bg-sky-200"
         } rounded-lg `}
       >
         <Text
