@@ -1,7 +1,7 @@
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
+import Logo from "../../assets/logo.png";
 import { useColorScheme } from "nativewind";
 
 type Props = {};
@@ -15,7 +15,7 @@ const Navbar = (props: Props) => {
       className={`flex items-center justify-between flex-row py-2 px-3 bg-indigo-900`}
     >
       <View className="flex items-center flex-row">
-        <FontAwesome name="book" size={20} color="rgb(125 211 252)" />
+        <Image className="h-5 w-5" source={Logo} alt="logo" />
         <Text className={`ml-1 text-lg font-extrabold italic text-sky-300`}>
           Quizzy
         </Text>
