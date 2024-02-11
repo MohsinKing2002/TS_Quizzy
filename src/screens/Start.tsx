@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View, ScrollView } from "react-native";
 import InputWithLabel from "../components/InputWithLabel";
 import { useColorScheme } from "nativewind";
 
@@ -30,7 +30,7 @@ const Start = ({
   /************************ theme toggle *****************************/
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const BgTheming = colorScheme == "light" ? "bg-white" : "bg-slate-700";
-  const BgTouchable = colorScheme == "light" ? "sky-200" : "lightsky";
+  const BgTouchable = colorScheme == "light" ? "sky-200" : "blue-400";
   const TextTheming = colorScheme == "light" ? "text-black" : "text-gray-200";
 
   const [QuestionCategory, setQuestionCategory] = useState<SelectProps[]>([
@@ -129,117 +129,134 @@ const Start = ({
   };
 
   return (
-    <View className={`p-3 rounded-lg flex space-y-6 ${BgTheming}`}>
-      {/* <Text className="text-lg font-extrabold tracking-wider italic text-center">
+    <ScrollView
+      keyboardDismissMode="interactive"
+      showsVerticalScrollIndicator={false}
+    >
+      <View className={`mt-3 p-3 rounded-lg flex space-y-7 ${BgTheming}`}>
+        {/* <Text className="text-lg font-extrabold tracking-wider italic text-center">
         Play Quizzy !
       </Text> */}
-      {/************************ Name Input *****************************/}
-      <InputWithLabel
-        label="Name"
-        value={name}
-        onChangeText={(text: string) => {
-          setName(text);
-        }}
-      />
+        {/************************ Name Input *****************************/}
+        <InputWithLabel
+          label="Name"
+          value={name}
+          onChangeText={(text: string) => {
+            setName(text);
+          }}
+        />
 
-      {/************************ choose number of questions *****************************/}
-      <View>
-        <Text className={`text-base font-bold pb-1 ${TextTheming}`}>
-          Questions
-        </Text>
-        <View className="flex items-center flex-row gap-x-2">
-          {QuestionNumbers?.map((question) => (
-            <TouchableOpacity
-              key={question.id}
-              onPress={() => {
-                onButtonClick(question, QuestionNumbers, setQuestionNumbers);
-                setAmount(question.value);
-              }}
-              className={`py-2 px-5 ${
-                question.select ? `bg-${BgTouchable}` : "border border-gray-300"
-              } rounded-full`}
-            >
-              <Text className={`text-base ${TextTheming}`}>
-                {question.value}
-              </Text>
-            </TouchableOpacity>
-          ))}
+        {/************************ choose number of questions *****************************/}
+        <View>
+          <Text className={`text-base font-bold pb-1 ${TextTheming}`}>
+            Questions
+          </Text>
+          <View className="flex items-center flex-row gap-x-2">
+            {QuestionNumbers?.map((question) => (
+              <TouchableOpacity
+                key={question.id}
+                onPress={() => {
+                  onButtonClick(question, QuestionNumbers, setQuestionNumbers);
+                  setAmount(question.value);
+                }}
+                className={`py-2 px-5 ${
+                  question.select
+                    ? `bg-${BgTouchable}`
+                    : "border border-gray-300"
+                } rounded-full`}
+              >
+                <Text className={`text-base ${TextTheming}`}>
+                  {question.value}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
-      </View>
 
-      {/************************ choose category of questions *****************************/}
-      <View>
-        <Text className={`text-base font-bold pb-1 ${TextTheming}`}>
-          Categories
-        </Text>
-        <View className="flex items-center flex-row flex-wrap gap-x-2">
-          {QuestionCategory?.map((question) => (
-            <TouchableOpacity
-              key={question.id}
-              onPress={() => {
-                onButtonClick(question, QuestionCategory, setQuestionCategory);
-                setCategory(question.value);
-              }}
-              className={`py-2 px-5 ${
-                question.select ? `bg-${BgTouchable}` : "border border-gray-300"
-              } rounded-full m-1`}
-            >
-              <Text className={`text-base ${TextTheming}`}>
-                {question.title}
-              </Text>
-            </TouchableOpacity>
-          ))}
+        {/************************ choose category of questions *****************************/}
+        <View>
+          <Text className={`text-base font-bold pb-1 ${TextTheming}`}>
+            Categories
+          </Text>
+          <View className="flex items-center flex-row flex-wrap gap-x-2">
+            {QuestionCategory?.map((question) => (
+              <TouchableOpacity
+                key={question.id}
+                onPress={() => {
+                  onButtonClick(
+                    question,
+                    QuestionCategory,
+                    setQuestionCategory
+                  );
+                  setCategory(question.value);
+                }}
+                className={`py-2 px-5 ${
+                  question.select
+                    ? `bg-${BgTouchable}`
+                    : "border border-gray-300"
+                } rounded-full m-1`}
+              >
+                <Text className={`text-base ${TextTheming}`}>
+                  {question.title}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
-      </View>
 
-      {/************************ choose difficulty of questions *****************************/}
-      <View>
-        <Text className={`text-base font-bold pb-1 ${TextTheming}`}>
-          Difficulty
-        </Text>
-        <View className="flex items-center flex-row flex-wrap gap-x-2">
-          {QuestionDifficulty?.map((question) => (
-            <TouchableOpacity
-              key={question.id}
-              onPress={() => {
-                onButtonClick(
-                  question,
-                  QuestionDifficulty,
-                  setQuestionDifficulty
-                );
-                setDifficuly(question.title == "Default" ? "" : question.title);
-              }}
-              className={`py-2 px-5 ${
-                question.select ? `bg-${BgTouchable}` : "border border-gray-300"
-              } rounded-full m-1`}
-            >
-              <Text className={`text-base ${TextTheming} capitalize`}>
-                {question.title}
-              </Text>
-            </TouchableOpacity>
-          ))}
+        {/************************ choose difficulty of questions *****************************/}
+        <View>
+          <Text className={`text-base font-bold pb-1 ${TextTheming}`}>
+            Difficulty
+          </Text>
+          <View className="flex items-center flex-row flex-wrap gap-x-2">
+            {QuestionDifficulty?.map((question) => (
+              <TouchableOpacity
+                key={question.id}
+                onPress={() => {
+                  onButtonClick(
+                    question,
+                    QuestionDifficulty,
+                    setQuestionDifficulty
+                  );
+                  setDifficuly(
+                    question.title == "Default" ? "" : question.title
+                  );
+                }}
+                className={`py-2 px-5 ${
+                  question.select
+                    ? `bg-${BgTouchable}`
+                    : "border border-gray-300"
+                } rounded-full m-1`}
+              >
+                <Text className={`text-base ${TextTheming} capitalize`}>
+                  {question.title}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
-      </View>
 
-      {/************************ Start button *****************************/}
-      <TouchableOpacity
-        disabled={!name}
-        onPress={() => {
-          fetchQuestions();
-        }}
-        className={`mt-4 p-3 ${
-          !name ? " border border-gray-400" : "bg-sky-200"
-        } rounded-lg `}
-      >
-        <Text
-          className={`text-base font-bold text-center tracking-wider ${
-            !name ? "text-gray-400" : "text-black"
-          }`}
+        {/************************ Start button *****************************/}
+        <TouchableOpacity
+          disabled={!name}
+          onPress={() => {
+            fetchQuestions();
+          }}
+          className={`mt-4 p-3 ${
+            !name ? " border border-gray-400" : "bg-sky-200"
+          } rounded-lg `}
         >
-          Start Game
-        </Text>
-      </TouchableOpacity>
-    </View>
+          <Text
+            className={`text-base font-bold text-center tracking-wider ${
+              !name ? "text-gray-400" : "text-black"
+            }`}
+          >
+            Start Game
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 };
 

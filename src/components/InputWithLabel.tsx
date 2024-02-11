@@ -24,6 +24,9 @@ const InputWithLabel = ({ label, value, onChangeText }: Props) => {
         value={value}
         onChangeText={onChangeText}
       />
+      {!value && (
+        <Text className="pt-1 text-red-600">* Enter you name to start..</Text>
+      )}
     </View>
   );
 };

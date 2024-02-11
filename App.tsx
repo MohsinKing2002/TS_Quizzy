@@ -46,7 +46,7 @@ export default function App() {
 
   /************************ theme toggle *****************************/
   const { colorScheme, toggleColorScheme } = useColorScheme();
-  const BgTheming = colorScheme == "light" ? "lightgray" : "slate-900";
+  const BgTheming = colorScheme == "light" ? "bg-[#D6D6D6]" : "bg-[#0C2D48]";
   const TextTheming = colorScheme == "light" ? "gray-900" : "lightgray";
 
   /************************ Shuffle options *****************************/
@@ -127,9 +127,7 @@ export default function App() {
   return (
     <>
       <Navbar />
-      <SafeAreaView
-        className={`flex-1 h-full justify-center p-3 bg-${BgTheming}`}
-      >
+      <SafeAreaView className={`flex-1 h-full justify-center p-3 ${BgTheming}`}>
         {loading ? (
           <View className="flex-1 items-center justify-center">
             <Image
